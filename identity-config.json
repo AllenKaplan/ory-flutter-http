@@ -1,0 +1,213 @@
+{
+  "cookies": {
+    "domain": "agitated-fermi-mddf7qd840.projects.oryapis.com",
+    "path": "/",
+    "same_site": "Lax"
+  },
+  "courier": {
+    "smtp": {
+      "from_name": "Radar via Ory"
+    },
+    "templates": {
+      "recovery": {
+        "invalid": {
+          "email": {
+            "body": {}
+          }
+        },
+        "valid": {
+          "email": {
+            "body": {}
+          }
+        }
+      },
+      "verification": {
+        "invalid": {
+          "email": {
+            "body": {}
+          }
+        },
+        "valid": {
+          "email": {
+            "body": {}
+          }
+        }
+      }
+    }
+  },
+  "identity": {
+    "default_schema_id": "5a618d353feae90763e0562bf91473939e8e248518cac4805874f3a8e03f2350c4d853103159343a1013ae9e10cbe02874a7c20c9651aaa6e28b78bc1fc98723",
+    "schemas": [
+      {
+        "id": "5a618d353feae90763e0562bf91473939e8e248518cac4805874f3a8e03f2350c4d853103159343a1013ae9e10cbe02874a7c20c9651aaa6e28b78bc1fc98723",
+        "url": "https://storage.googleapis.com/bac-gcs-production/5a618d353feae90763e0562bf91473939e8e248518cac4805874f3a8e03f2350c4d853103159343a1013ae9e10cbe02874a7c20c9651aaa6e28b78bc1fc98723.json"
+      },
+      {
+        "id": "preset://email",
+        "url": "base64://ewogICIkaWQiOiAiaHR0cHM6Ly9zY2hlbWFzLm9yeS5zaC9wcmVzZXRzL2tyYXRvcy9pZGVudGl0eS5lbWFpbC5zY2hlbWEuanNvbiIsCiAgIiRzY2hlbWEiOiAiaHR0cDovL2pzb24tc2NoZW1hLm9yZy9kcmFmdC0wNy9zY2hlbWEjIiwKICAidGl0bGUiOiAiUGVyc29uIiwKICAidHlwZSI6ICJvYmplY3QiLAogICJwcm9wZXJ0aWVzIjogewogICAgInRyYWl0cyI6IHsKICAgICAgInR5cGUiOiAib2JqZWN0IiwKICAgICAgInByb3BlcnRpZXMiOiB7CiAgICAgICAgImVtYWlsIjogewogICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwKICAgICAgICAgICJmb3JtYXQiOiAiZW1haWwiLAogICAgICAgICAgInRpdGxlIjogIkUtTWFpbCIsCiAgICAgICAgICAib3J5LnNoL2tyYXRvcyI6IHsKICAgICAgICAgICAgImNyZWRlbnRpYWxzIjogewogICAgICAgICAgICAgICJwYXNzd29yZCI6IHsKICAgICAgICAgICAgICAgICJpZGVudGlmaWVyIjogdHJ1ZQogICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgIndlYmF1dGhuIjogewogICAgICAgICAgICAgICAgImlkZW50aWZpZXIiOiB0cnVlCiAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAidG90cCI6IHsKICAgICAgICAgICAgICAgICJhY2NvdW50X25hbWUiOiB0cnVlCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9LAogICAgICAgICAgICAicmVjb3ZlcnkiOiB7CiAgICAgICAgICAgICAgInZpYSI6ICJlbWFpbCIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgInZlcmlmaWNhdGlvbiI6IHsKICAgICAgICAgICAgICAidmlhIjogImVtYWlsIgogICAgICAgICAgICB9CiAgICAgICAgICB9LAogICAgICAgICAgIm1heExlbmd0aCI6IDMyMAogICAgICAgIH0KICAgICAgfSwKICAgICAgInJlcXVpcmVkIjogWwogICAgICAgICJlbWFpbCIKICAgICAgXSwKICAgICAgImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjogZmFsc2UKICAgIH0KICB9Cn0K"
+      },
+      {
+        "id": "27950be44c3a234b412edf84dcade20c735bda88c987b9338c3e5ca7fdacc0f575afc069012c12c7292660fd0513e66536a0fea4e0580a3f2e9227f61ca7070d",
+        "url": "https://storage.googleapis.com/bac-gcs-production/27950be44c3a234b412edf84dcade20c735bda88c987b9338c3e5ca7fdacc0f575afc069012c12c7292660fd0513e66536a0fea4e0580a3f2e9227f61ca7070d.json"
+      },
+      {
+        "id": "319733173f579cb3aab2da871b31020076d7281a6c883fd6bcf9468339f08472bcead533361e845f1059c703479758242cb6c75869330d5657cf091ad7104bb3",
+        "url": "https://storage.googleapis.com/bac-gcs-production/319733173f579cb3aab2da871b31020076d7281a6c883fd6bcf9468339f08472bcead533361e845f1059c703479758242cb6c75869330d5657cf091ad7104bb3.json"
+      }
+    ]
+  },
+  "selfservice": {
+    "allowed_return_urls": [],
+    "default_browser_return_url": "/ui/welcome",
+    "flows": {
+      "error": {
+        "ui_url": "/ui/error"
+      },
+      "login": {
+        "after": {
+          "hooks": [],
+          "oidc": {
+            "hooks": []
+          },
+          "password": {
+            "hooks": [
+              {
+                "hook": "require_verified_address"
+              }
+            ]
+          },
+          "webauthn": {
+            "hooks": []
+          }
+        },
+        "before": {
+          "hooks": []
+        },
+        "ui_url": "/ui/login"
+      },
+      "logout": {
+        "after": {}
+      },
+      "recovery": {
+        "after": {
+          "hooks": []
+        },
+        "enabled": true,
+        "ui_url": "/ui/recovery"
+      },
+      "registration": {
+        "after": {
+          "hooks": [],
+          "oidc": {
+            "hooks": [
+              {
+                "hook": "session"
+              }
+            ]
+          },
+          "password": {
+            "hooks": [
+              {
+                "hook": "session"
+              }
+            ]
+          },
+          "webauthn": {
+            "hooks": []
+          }
+        },
+        "before": {
+          "hooks": []
+        },
+        "enabled": true,
+        "ui_url": "/ui/registration"
+      },
+      "settings": {
+        "after": {
+          "hooks": [],
+          "password": {
+            "hooks": []
+          },
+          "profile": {
+            "hooks": []
+          }
+        },
+        "privileged_session_max_age": "15m0s",
+        "required_aal": "highest_available",
+        "ui_url": "/ui/settings"
+      },
+      "verification": {
+        "after": {
+          "hooks": []
+        },
+        "enabled": true,
+        "ui_url": "/ui/verification"
+      }
+    },
+    "methods": {
+      "link": {
+        "config": {
+          "base_url": "https://auth.radar.coffee/"
+        },
+        "enabled": true
+      },
+      "lookup_secret": {},
+      "oidc": {
+        "config": {
+          "base_redirect_uri": "https://auth.radar.coffee/",
+          "providers": []
+        },
+        "enabled": false
+      },
+      "password": {
+        "config": {},
+        "enabled": true
+      },
+      "profile": {},
+      "totp": {
+        "config": {
+          "issuer": "Radar"
+        }
+      },
+      "webauthn": {
+        "config": {
+          "passwordless": false,
+          "rp": {
+            "display_name": "Radar",
+            "id": "agitated-fermi-mddf7qd840.projects.oryapis.com",
+            "origin": "https://agitated-fermi-mddf7qd840.projects.oryapis.com"
+          }
+        }
+      }
+    }
+  },
+  "serve": {
+    "admin": {
+      "base_url": "https://agitated-fermi-mddf7qd840.projects.oryapis.com/",
+      "request_log": {
+        "disable_for_health": true
+      }
+    },
+    "public": {
+      "base_url": "https://agitated-fermi-mddf7qd840.projects.oryapis.com/",
+      "cors": {
+        "enabled": false
+      },
+      "request_log": {
+        "disable_for_health": true
+      }
+    }
+  },
+  "session": {
+    "cookie": {
+      "domain": "agitated-fermi-mddf7qd840.projects.oryapis.com",
+      "name": "ory_session_agitatedfermimddf7qd840",
+      "path": "/",
+      "same_site": "Lax"
+    },
+    "lifespan": "720h0m0s",
+    "whoami": {
+      "required_aal": "aal1"
+    }
+  }
+}

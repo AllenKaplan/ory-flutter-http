@@ -1,0 +1,6 @@
+package com.radar.ory.ory_flutter
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
