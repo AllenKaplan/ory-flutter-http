@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ory_flutter/screens/home.dart';
+import 'package:ory_flutter/services/auth_service.dart';
 import 'package:ory_flutter/view_models/authenticated_view_model.dart';
 import 'package:ory_flutter/view_models/unauthenticated_view_model.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +21,30 @@ class _SignIn extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
   LoginState state = LoginState.signIn;
 
+  bool enableButton = true;
+
+  onSignInError(Exception e) {
+    String text = '';
+    if (e is InvalidCredentialsException) {
+      debugPrint('handling invalid credentials exception');
+      debugPrint('check your identifier and password combo');
+      text = 'Incorrect account or password';
+    } else if (e is UnknownException) {
+      debugPrint('handling unknown error exception');
+      text = 'An error occurred';
+    } else {
+      text = 'An error occurred';
+      throw e;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(text),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    enableButton = true;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign In/Up'),
@@ -29,6 +52,7 @@ class _SignIn extends State<SignIn> {
       body: Consumer<UnauthenticatedViewModel>(
         builder: (context, vm, _) {
           signIn() {
+            enableButton = false;
             vm
                 .signIn(
                     username: usernameController.text,
@@ -38,7 +62,9 @@ class _SignIn extends State<SignIn> {
                         create: (_) => AuthenticatedViewModel(),
                         child: const Home(),
                       ),
-                    )));
+                    )))
+                .catchError((e) => onSignInError(e));
+            enableButton = true;
           }
 
           signUp() {
@@ -82,7 +108,11 @@ class _SignIn extends State<SignIn> {
                       )
                     : Container(),
                 ElevatedButton(
-                    onPressed: state == LoginState.signIn ? signIn : signUp,
+                    onPressed: !enableButton
+                        ? null
+                        : state == LoginState.signIn
+                            ? signIn
+                            : signUp,
                     child: state == LoginState.signIn
                         ? const Text('Sign In')
                         : const Text('Sign Up')),

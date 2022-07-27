@@ -22,11 +22,12 @@ class UnauthenticatedViewModel with ChangeNotifier {
 
     try {
       final resp = await _authService.signIn(flowId, username, password);
-      String token = resp.sessionToken!;
+      String token = resp;
       await secureStorage.persistToken(token);
       debugPrint('token saved: ${await secureStorage.getToken()}',
           wrapWidth: 1024);
     } catch (e) {
+      debugPrint('caught sign error in view model... $e');
       rethrow;
     }
     notifyListeners();
@@ -49,8 +50,8 @@ class UnauthenticatedViewModel with ChangeNotifier {
 
     try {
       final resp =
-          await _authService.signUp(flowId, email, password, phone, username);
-      await secureStorage.persistToken(resp.sessionToken!);
+          await _authService.signUp(flowId, username, email, phone, password);
+      await secureStorage.persistToken(resp);
       debugPrint('token: ${await secureStorage.getToken()}');
     } catch (e) {
       rethrow;
