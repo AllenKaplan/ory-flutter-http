@@ -10,30 +10,33 @@ class UnauthenticatedViewModel with ChangeNotifier {
       : _authService = AuthService(),
         secureStorage = SecureStorage();
 
-  Future<void> signIn(
+  Future<void> login(
       {required String username, required String password}) async {
     late String flowId;
 
     try {
-      await _authService.initiateLoginFlow().then((value) => flowId = value);
+      flowId = await _authService.initiateLoginFlow();
     } catch (e) {
+      debugPrint('caught initiate login error in view model... $e');
       rethrow;
     }
 
     try {
-      final resp = await _authService.signIn(flowId, username, password);
-      String token = resp;
+      final resp = await _authService.login(flowId, username, password);
+      String token = resp.sessionToken!;
       await secureStorage.persistToken(token);
+      await secureStorage.persistUserId(resp.userId!);
+      await secureStorage.persistTraits(resp.traits!);
       debugPrint('token saved: ${await secureStorage.getToken()}',
           wrapWidth: 1024);
-    } catch (e) {
-      debugPrint('caught sign error in view model... $e');
+    } on Exception catch (e) {
+      debugPrint('caught login error in view model... $e');
       rethrow;
     }
     notifyListeners();
   }
 
-  Future<void> signUp(
+  Future<void> register(
       {required String username,
       required String password,
       required String phone,
@@ -50,12 +53,27 @@ class UnauthenticatedViewModel with ChangeNotifier {
 
     try {
       final resp =
-          await _authService.signUp(flowId, username, email, phone, password);
-      await secureStorage.persistToken(resp);
+          await _authService.register(flowId, username, email, phone, password);
+      String token = resp.sessionToken!;
+      await secureStorage.persistToken(token);
+      await secureStorage.persistUserId(resp.userId!);
+      await secureStorage.persistTraits(resp.traits!);
       debugPrint('token: ${await secureStorage.getToken()}');
     } catch (e) {
       rethrow;
     }
     notifyListeners();
+  }
+
+  Future<void> recoverAccount(String email) async {
+    late String flowId;
+
+    try {
+      await _authService.initiateRecoveryFlow().then((value) => flowId = value);
+    } catch (e) {
+      rethrow;
+    }
+
+    await _authService.recoverAccount(flowId, email);
   }
 }
